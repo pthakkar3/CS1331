@@ -1,0 +1,31 @@
+apply plugin: 'java'
+apply plugin: 'checkstyle'
+apply plugin: org.cs1331.gitsubmitter.GitSubmitterPlugin
+
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            url 'http://repo.tweedbathrobe.com'
+        }
+    }
+    dependencies { classpath 'org.cs1331:git-submitter-gradle-plugin:0.2-SNAPSHOT' }
+}
+
+dependencies {
+    testCompile 'junit:junit:4.12'
+}
+
+checkstyle {
+    configFile = new File(rootDir, 'cs1331-checkstyle.xml')
+    ignoreFailures = true
+}
+
+submission {
+    collabs     = ['cs257', 'kcartledge3', 'tshields3']                //List the users here
+    repo_name   = 'hw0'     // Put the desired repository name prefix here
+    files       = ['hw0-output.txt']
+}
+
+jar.enabled = false
+checkstyleTest.enabled = false
